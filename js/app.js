@@ -8,10 +8,10 @@ var gameStarted = false;
 var seconds = 0;
 var countSeconds;
 var starResult = 4;
-var starChart4 = 9;
-var starChart3 = 13;
-var starChart2 = 17;
-var starChart1 = 21;
+const starChart4 = 9;
+const starChart3 = 13;
+const starChart2 = 17;
+
 
 
 // Shuffle function from http://stackoverflow.com/a/2450976
@@ -103,9 +103,17 @@ function compareCards() {
 function winGame() {
   if(matchedCards.length === 8) {
     swal({
+      closeOnClickOutside: false,
+      closeOnEsc: false,
       title: "You win!",
       text: "You matched all 8 pairs in " + seconds + " seconds, " + moveCount + " moves, and with " + starResult + " stars remaining.",
       icon: "success",
+      button: "Play again!"
+    }).then(function(isConfirm) {
+      if (isConfirm) {
+        $('.deck, .moves').empty();
+        reset();
+      }
     });
     clearInterval(countSeconds);
   }
@@ -123,13 +131,9 @@ function starCount() {
     $('.star3').hide();
     starResult = 2;
   }
-  else if (moveCount >= starChart2 && moveCount < starChart1) {
+  else if (moveCount >= starChart2) {
     $('.star2').hide();
     starResult = 1;
-  }
-  else if (moveCount >= starChart1) {
-    $('.star1').hide();
-    starResult = 0;
   }
 }
 
