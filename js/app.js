@@ -44,6 +44,7 @@ $('.restart').on('click', function() {
   var confirmReset = confirm('Are you sure you want to reset the game?');
   if (confirmReset === true) {
     $('.deck, .moves').empty();
+    firstClick = '';
     reset();
   }
 });
@@ -191,6 +192,7 @@ function reset(){
   });
   moveCount = 0;
   matchedCards = [];
+  tempCards = [];
   clearInterval(countSeconds);
   seconds = 0;
   $('.seconds').text("");
